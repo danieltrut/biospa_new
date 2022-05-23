@@ -12,20 +12,16 @@ var corsOptions = {
 // Allowing to make calls from frontend to backend api
 app.use(cors(corsOptions));
 
-// Using .use() method to use as middleware in App
-
-// Analise requests from req.body in this middleware
+//Analise requests from req.body in this middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Middleware parse json bodies in the request object
-app.use(express.json());
-
 // Redirect requests to endpoint starting with /entity to matching folders /route/file
-app.use("/procedures", require("./routes/procedureRoutes"));
-app.use("/symptoms", require("./routes/symptomRoutes"));
-app.use("/targets", require("./routes/targetRoutes"));
-app.use("/diseases", require("./routes/diseaseRoutes"));
+app.use("/api/procedures", require("./routes/procedureRoutes"));
+app.use("/api/symptoms", require("./routes/symptomRoutes"));
+app.use("/api/targets", require("./routes/targetRoutes"));
+app.use("/api/diseases", require("./routes/diseaseRoutes"));
+app.use("/api/mail", require("./routes/mailRoutes"));
 
 app.use((req, rew, next) => {
   const error = new Error("Not found");

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext } from "./../../Context";
 
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
@@ -73,13 +74,13 @@ const headCells = [
     id: "duration",
     numeric: true,
     disablePadding: false,
-    label: "Kestvus (m)",
+    label: "Kestvus (m)",
   },
   {
     id: "price",
     numeric: true,
     disablePadding: false,
-    label: "Hind (€)",
+    label: "Hind (€)",
   },
 ];
 
@@ -163,7 +164,6 @@ const EnhancedTableToolbar = (props) => {
         }),
       }}
     >
-    
       {/* {procedures?.length === 0 ? (
         <Typography
           sx={{ flex: "1 1 100%" }}
@@ -183,8 +183,6 @@ const EnhancedTableToolbar = (props) => {
           Protseduurid
         </Typography>
       )} */}
-
-
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
@@ -209,27 +207,13 @@ EnhancedTableToolbar.propTypes = {
 
 // Table part by itsesf --------------------------------------------------------------------
 
-export default function EnhancedTable(props) {
+export default function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("price");
-
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  // const [proceduresValues, setProceduresValues] = [];
-  const {
-    diseasesValue,
-    setDiseasesValue,
-    targetsValue,
-    setTargetsValue,
-    symptomsValue,
-    setSymptomsValue,
-    pricesValue,
-    setPricesValue,
-    procedures,
-    setProcedures,
-    procValue, setProcValue,
-  } = props;
+  const { procedures, setProcedures } = useContext(GlobalContext); // Catches chosen Procedures in Tabel
+  const { proceduresValue, setProceduresValue } = useContext(GlobalContext); // Catches chosen Procedures in Tabel
 
   //   useEffect(() => {
   //     loadProcedures();
@@ -247,33 +231,33 @@ export default function EnhancedTable(props) {
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = procedures.map((n) => n.proc_title_et);
-      setProcValue(newSelecteds);
+      setProceduresValue(newSelecteds);
       return;
     }
-    setProcValue([]);
+    setProceduresValue([]);
   };
 
   // Every Fetching Result Row Checkbox
   const handleSelectedProcecures = (event, proc_title_et) => {
-    const selectedIndex = procValue.indexOf(proc_title_et);
+    const selectedIndex = proceduresValue.indexOf(proc_title_et);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(procValue, proc_title_et);
+      newSelected = newSelected.concat(proceduresValue, proc_title_et);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(procValue.slice(1));
-    } else if (selectedIndex === procValue.length - 1) {
-      newSelected = newSelected.concat(procValue.slice(0, -1));
+      newSelected = newSelected.concat(proceduresValue.slice(1));
+    } else if (selectedIndex === proceduresValue.length - 1) {
+      newSelected = newSelected.concat(proceduresValue.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
-        procValue.slice(0, selectedIndex),
-        procValue.slice(selectedIndex + 1)
+        proceduresValue.slice(0, selectedIndex),
+        proceduresValue.slice(selectedIndex + 1)
       );
     }
 
-    setProcValue(newSelected);
+    setProceduresValue(newSelected);
+    console.log(setProcedures);
   };
-
   // Changing pages
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -286,37 +270,23 @@ export default function EnhancedTable(props) {
   };
 
   // Counting of how much is selected
-  const isSelected = (proc_title_et) => procValue.indexOf(proc_title_et) !== -1;
-
+  const isSelected = (proc_title_et) =>
+    proceduresValue.indexOf(proc_title_et) !== -1;
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - procedures.length) : 0;
 
   // Passing values to Generic button
-  const chosenValues = {
-    diseasesValue,
-    setDiseasesValue,
-    targetsValue,
-    setTargetsValue,
-    symptomsValue,
-    setSymptomsValue,
-    pricesValue,
-    procedures,
-    setPricesValue,
-    procValue, setProcValue,
-    
-  };
 
   return (
     <Box sx={{ width: "100%" }}>
-
       {/*  Button fetches procedures data */}
-      <GenericBtn {...chosenValues} setProcedures={setProcedures} />
+      <GenericBtn />
 
-       {/*
-        *  If statement - if array length is not null table is shown
-        */}
-        
+      {/*
+       *  If statement - if array length is not null table is shown
+       */}
+
       {procedures?.length === 0 ? (
         <Typography
           sx={{ flex: "1 1 100%" }}
@@ -329,114 +299,102 @@ export default function EnhancedTable(props) {
       ) : (
         <Paper sx={{ width: "100%", mb: 2 }}>
           <Typography
-          sx={{ flex: "1 1 100%" }}
-          style={{ marginLeft: 15, paddingTop: 15 }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Protseduurid
-        </Typography>
-        <TableContainer>
-        <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-       
-        
-        
-          <EnhancedTableHead
-            numSelected={procValue.length}
-            order={order}
-            orderBy={orderBy}
-            onSelectAllClick={handleSelectAllClick}
-            onRequestSort={handleRequestSort}
-            rowCount={procedures.length}
-          />
-          <TableBody procedures={procedures}>
-            {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+            sx={{ flex: "1 1 100%" }}
+            style={{ marginLeft: 15, paddingTop: 15 }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            Protseduurid
+          </Typography>
+          <TableContainer>
+            <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+              <EnhancedTableHead
+                numSelected={proceduresValue.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={procedures.length}
+              />
+              <TableBody procedures={procedures}>
+                {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                rows.slice().sort(getComparator(order, orderBy)) */}
-            {stableSort(procedures, getComparator(order, orderBy))
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((procedure, index) => {
-                const isItemSelected = isSelected(procedure.proc_title_et);
-                const labelId = `enhanced-table-checkbox-${index}`;
+                {stableSort(procedures, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((procedure, index) => {
+                    const isItemSelected = isSelected(procedure.proc_title_et);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) =>
-                      handleSelectedProcecures(event, procedure.proc_title_et)
-                    }
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={procedure.proc_title_et}
-                    selected={isItemSelected}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          "aria-labelledby": labelId,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="none"
-                    >
-                      {procedure.proc_title_et}
-                    </TableCell>
-                    <TableCell align="right">
-                      {procedure.proc_descr_et}
-                    </TableCell>
-                    <TableCell align="right">
-                      {procedure.proc_duration}
-                    </TableCell>
-                    <TableCell align="right">
-                      {procedure.proc_price}
-                    </TableCell>
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) =>
+                          handleSelectedProcecures(
+                            event,
+                            procedure.proc_title_et
+                          )
+                        }
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={procedure.proc_title_et}
+                        selected={isItemSelected}
+                      >
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              "aria-labelledby": labelId,
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
+                          {procedure.proc_title_et}
+                        </TableCell>
+                        <TableCell align="right">
+                          {procedure.proc_descr_et}
+                        </TableCell>
+                        <TableCell align="right">
+                          {procedure.proc_duration}
+                        </TableCell>
+                        <TableCell align="right">
+                          {procedure.proc_price}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow>
+                    <TableCell colSpan={6} />
                   </TableRow>
-                );
-              })}
-            {emptyRows > 0 && (
-              <TableRow>
-                <TableCell colSpan={6} />
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={procedures.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-        
-        
-        
-
-      </TableContainer>
-     
-    
-    
-
-      </Paper>
-       
-      
+                )}
+              </TableBody>
+            </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={procedures.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </TableContainer>
+        </Paper>
       )}
 
       {/*  Table consistens */}
-      
-        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-        
-        
-        <EmailSender />
-        
+
+      {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
+
+      <EmailSender />
     </Box>
   );
 }

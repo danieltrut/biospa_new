@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { GlobalContext } from "./../../Context";
+
 import axios from "axios";
 
 import Tooltip from "@mui/material/Tooltip";
@@ -19,8 +21,9 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 //////////////////////////////////////////////////////////////////////////////
 
 //  TODO Extract list of diseases from db into dropdown list
-function DropTargets(props) {
-  const { targets, setTargets, targetsValue, setTargetsValue } = props;
+function DropTargets() {
+  const [targets, setTargets] = useState([]);
+  const { targetsValue, setTargetsValue } = useContext(GlobalContext); // Catches chosen Targets in Dropdown
 
   // Fetch Diseases in dropdown on Page load
   useEffect(() => {
@@ -66,7 +69,7 @@ function DropTargets(props) {
               </li>
             )}
             renderInput={(params) => (
-              <TextField {...params} label="Eesmärgid" />
+              <TextField {...params} autoFocus={true} label="Eesmärgid" />
             )}
           />
         </Grid>

@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { GlobalContext } from "./../../Context";
+
 import axios from "axios";
 
 import Autocomplete from "@mui/material/Autocomplete";
@@ -21,7 +23,8 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 //  TODO Extract list of diseases from db into dropdown list
 function DropSymptoms(props) {
-  const { symptoms, setSymptoms, symptomsValue, setSymptomsValue } = props;
+  const [symptoms, setSymptoms] = useState([]);
+  const { symptomsValue, setSymptomsValue } = useContext(GlobalContext); // Catches chosen Symptoms in Dropdown
 
   // Fetch Diseases in dropdown on Page load
   useEffect(() => {
@@ -70,7 +73,7 @@ function DropSymptoms(props) {
               <TextField
                 {...params}
                 label="Kaebused"
-                placeholder="Vali kaebused"
+                // placeholder="Vali kaebused"
               />
             )}
           />

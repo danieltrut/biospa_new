@@ -1,43 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
-
+// import { Link } from "react-router-dom";
 
 import facebook from "../../Images/facebook.png";
 import instagram from "../../Images/instagram.png";
 
-
 const classes = {
-    root: {
-        marginTop: "5rem"
-    },
-    intro: {
-      backgroundColor: "#1d242d",
-      color: "#fff",
-      paddingTop: "5rem",
-      paddingBottom: "5rem",
-      paddingLeft: "2rem",
-      paddingRight: "2rem",
-      margin: "auto",
-    },
-    sec: {
-        display: "flex",
-        maxWidth: "1200px",
-        width: "100%",
-        margin: "auto",
-        justifyContent: "space-between"
-      },
-      social : {
-        display: "flex",
-      },
-      inst : {
-        marginLeft: "12px",
-      },
-  };
+  root: {
+    marginTop: "5rem",
+  },
+  intro: {
+    backgroundColor: "#1d242d",
+    color: "#fff",
+    paddingTop: "5rem",
+    paddingBottom: "5rem",
+    paddingLeft: "2rem",
+    paddingRight: "2rem",
+    margin: "auto",
+  },
+  sec: {
+    display: "flex",
+    maxWidth: "1200px",
+    width: "100%",
+    margin: "auto",
+    justifyContent: "space-between",
+  },
+  social: {
+    display: "flex",
+  },
+  inst: {
+    marginLeft: "12px",
+  },
+};
 
 function FooterComponent() {
-
   return (
     <div style={classes.root}>
       <Grid
@@ -49,28 +46,25 @@ function FooterComponent() {
         <Grid item xs={12} style={classes.intro}>
           {/* HEADER */}
           <div style={classes.sec}>
-            <div>
-                Loodus BioSpa | Copyright © 2022. Kõik õigused kaitstud
-            </div>
+            <div>Loodus BioSpa | Copyright © 2022. Kõik õigused kaitstud</div>
             <div style={classes.social}>
-                <a href="https://www.facebook.com/LoodusBioSpa/">
-                  <img 
+              <a href="https://www.facebook.com/LoodusBioSpa/">
+                <img
                   width="24px"
                   height="auto"
-                  src={facebook} 
-                  >
-                  </img>
-                </a>
-                <a href="https://www.instagram.com/loodusbiospa/">
-                <img 
+                  src={facebook}
+                  alt="Loodus BioSpa"
+                ></img>
+              </a>
+              <a href="https://www.instagram.com/loodusbiospa/">
+                <img
                   style={classes.inst}
                   width="24px"
                   height="auto"
-                  src={instagram} 
-                  >
-                  </img>
-                </a>
-                 
+                  src={instagram}
+                  alt="Loodus BioSpa"
+                ></img>
+              </a>
             </div>
           </div>
         </Grid>

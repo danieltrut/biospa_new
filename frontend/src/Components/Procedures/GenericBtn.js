@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext } from "./../../Context"; // Contecxt for providing props Globally
+
 import axios from "axios";
 import Button from "@mui/material/Button";
 
@@ -16,16 +18,13 @@ const classes = {
 };
 
 const GenericBtn = (props) => {
-  const {
-    targetsValue,
-    diseasesValue,
-    symptomsValue,
-    pricesValue,
-    loading,
-    setProcedures,
-  } = props;
+  const { diseasesValue, setDiseasesValue } = useContext(GlobalContext); // Catches chosen Diseases in Dropdown
+  const { targetsValue, setTargetsValue } = useContext(GlobalContext); // Catches chosen Targets in Dropdown
+  const { symptomsValue, setSymptomsValue } = useContext(GlobalContext); // Catches chosen Targets in Dropdown
+  const { pricesValue, setPricesValue } = useContext(GlobalContext); // Catches chosen Prices in Slider
+  const { procedures, setProcedures } = useContext(GlobalContext); // Catches chosen Prices in Slider
 
-  // Procedures on Targets And Symptoms
+  // Procedures on all filters
   const loadProcTargetsSymptoms = async () => {
     const idsTarQuery = targetsValue.map((n) => `tarIds=${n}`).join("&"); // Take props, mapp it and with query param join
     const idsSympQuery = symptomsValue.map((n) => `&sympIds=${n}`).join("&");
@@ -36,12 +35,16 @@ const GenericBtn = (props) => {
     );
 
     setProcedures(response.data);
+    console.log(setDiseasesValue);
+    console.log(setTargetsValue);
+    console.log(setSymptomsValue);
+    console.log(setPricesValue);
+    console.log(procedures);
   };
 
   return (
     <Button
       style={classes.searchBtn}
-      disabled={loading}
       spacing={5}
       onClick={() => {
         loadProcTargetsSymptoms(

@@ -1,4 +1,6 @@
-import * as React from "react";
+import React, { useContext } from "react";
+import { GlobalContext } from "./../../Context";
+
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -10,9 +12,10 @@ const Input = styled(MuiInput)`
   width: 42px;
 `;
 
-function RangeSlider(props) {
+function RangeSlider() {
   //const  [price, setPrice] = React.useState([20, 37]);
-  const { pricesValue, setPricesValue } = props;
+  const { pricesValue, setPricesValue } = useContext(GlobalContext); // Catches chosen Prices in Slider
+
   const [value, setValue] = React.useState(30); // Defolt price
 
   // Function catching input changes
