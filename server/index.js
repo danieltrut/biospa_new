@@ -22,10 +22,10 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 // Redirect requests to endpoint starting with /entity to matching folders /route/file
-app.use("/procedures", require("./routes/procedureRoutes"));
-app.use("/symptoms", require("./routes/symptomRoutes"));
-app.use("/targets", require("./routes/targetRoutes"));
-app.use("/diseases", require("./routes/diseaseRoutes"));
+app.use("/api/procedures", require("./routes/procedureRoutes"));
+app.use("/api/symptoms", require("./routes/symptomRoutes"));
+app.use("/api/targets", require("./routes/targetRoutes"));
+app.use("/api/diseases", require("./routes/diseaseRoutes"));
 
 app.use((req, rew, next) => {
   const error = new Error("Not found");

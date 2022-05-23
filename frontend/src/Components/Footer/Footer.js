@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
 
 
 import facebook from "../../Images/facebook.png";
@@ -69,6 +68,7 @@ function FooterComponent() {
                   src={instagram} 
                   >
                   </img>
+                
                 </a>
                  
             </div>
