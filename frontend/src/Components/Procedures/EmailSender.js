@@ -49,10 +49,8 @@ function EmailSender(props) {
     message === "" ? setMessageError(true) : setMessage("");
 
     // Chosed procedures looping for API URL integration and loading
-
-    const chosenProcedures = proceduresValue
-      .map((n) => `procedures=${n}`)
-      .join("&"); // Take props, mapp it and with query param join
+    // Take props, mapp it and with query param join
+    const chosenProcedures = proceduresValue.map((n) => `${n}`).join(", ");
 
     // Loading  is true if...
     if (
@@ -66,13 +64,12 @@ function EmailSender(props) {
       setLoading(true);
 
       // Adding array of procedures to Rest Api, if Checkbox is checked - add to Api
-
       console.log({ email, message, name, subject }); // TODO see the object in console
 
       // Rest Api with query parameters
       const response = await axios
         .post(
-          `http://localhost:4000/api/mail/sendmail?name=${name}&email=${email}&subject=${subject}&message=${message}&${chosenProcedures}`
+          `http://localhost:4000/api/mail/sendmail?name=${name}&email=${email}&subject=${subject}&message=${message}&procedures=${chosenProcedures}`
         )
         .then((res) => {
           setLetter(response.data);

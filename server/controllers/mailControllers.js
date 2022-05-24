@@ -34,15 +34,24 @@ exports.sendMail = (req, res, next) => {
       to: userEmail,
       subject: userSubject,
 
-      html: `<b>Tere, ${userName}!</b> </br><p>BioSpa protseduurite eelvaliku test.</p>\n 
-      </br><p>Teie sõnum:\n</br>${userMessage} </p>\n
-      <p>Protseduurid teie valisite: ${userProcedures}</p>`,
+      html: `<b>Tere, ${userName}!</b> </br><p>BioSpa protseduurite eelvaliku test.</p></br> 
+      <p>Teie sõnum:</p>\n<p>${userMessage} </p></br>
+      <b>Protseduurid teie valisite:</b>\n<p>${userProcedures}\n</p>
+      </br> <p>Loodus BioSpa</p>\n
+
+      <p>tel. (+372)5093581</p>\n
+      
+      <p>www.biospa.ee</p>\n
+      
+      <p>protseduurid@biospa.ee</p>`,
     };
 
     // Send email with defined transport object
     smtpTransport.sendMail(mailOptions, (err, response) => {
-      setLoading(false);
       console.log(mailOptions);
+      // return res
+      //   .status(200)
+      //   .json({ status: true, respLetter: "Teie Kiri Saadetud Edukalt!" });
     });
   } catch (error) {
     if (error) {
