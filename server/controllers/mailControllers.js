@@ -27,17 +27,28 @@ exports.sendMail = (req, res, next) => {
 
     smtpTransport.close(); // Closess the connection if there is no need for long
 
+    // If there is no choosen procedure
+    const isProcedures = userProcedures
+      ? `${userProcedures} `
+      : "Protseduurid pole valitud";
+
     // Setup email data with unicode symbols
     var mailOptions = {
       from: process.env.SMTP_TO_EMAIL,
       to: userEmail,
       subject: userSubject,
+<<<<<<< Updated upstream
       text: userMessage,
+=======
+
+      html: `<b>Tere, ${userName}!</b> </br><p>BioSpa protseduurite eelvaliku test.</p>\n 
+      </br><p>Teie sõnum:\n</br>${userMessage} </p></br>
+      <p>Protseduurid teie valisite: ${isProcedures}</p>`,
+>>>>>>> Stashed changes
     };
 
     // Send email with defined transport object
     smtpTransport.sendMail(mailOptions, (err, response) => {
-      setLoading(false);
       console.log(mailOptions);
       // return res
       //   .status(200)

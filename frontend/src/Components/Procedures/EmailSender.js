@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
 import React from "react";
+=======
+import React, { useContext } from "react";
+
+import { GlobalContext } from "./../../Context";
+>>>>>>> Stashed changes
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -57,7 +63,7 @@ function EmailSender(props) {
         .then((res) => {
           setLetter(response.data);
           alert("Email Sent Successfully");
-          setLoading(false);
+
           console.log(res);
 
           console.log(letter);
@@ -72,23 +78,6 @@ function EmailSender(props) {
           ? "Saadetakse..."
           : "Sisestage palun andmed, et saada otsimise tulemus oma emailile"}
       </Typography>
-
-      {loading && (
-        <img
-          src={sending}
-          alt="loading..."
-          style={{
-            filter: "none",
-            position: "absolute",
-            width: 100,
-            height: 100,
-            top: "50%",
-            left: "50%",
-            justifyContent: "center",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-      )}
 
       <Grid container spacing={5}>
         {/* --------------------- Name ---------------------------- */}
