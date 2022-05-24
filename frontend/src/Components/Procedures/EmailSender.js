@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 
 import axios from "axios";
 import { useState } from "react";
-import sending from "../../Images/sending.svg";
+
 import "../../index.css";
 
 function EmailSender(props) {
@@ -48,7 +48,21 @@ function EmailSender(props) {
 
     message === "" ? setMessageError(true) : setMessage("");
 
-    if (name && email && subject && message !== "" && email.match(regexTest)) {
+    // Chosed procedures looping for API URL integration and loading
+
+    const chosenProcedures = proceduresValue
+      .map((n) => `procedures=${n}`)
+      .join("&"); // Take props, mapp it and with query param join
+
+    // Loading  is true if...
+    if (
+      name &&
+      email &&
+      subject &&
+      message &&
+      chosenProcedures !== "" &&
+      email.match(regexTest)
+    ) {
       setLoading(true);
 
       // Adding array of procedures to Rest Api, if Checkbox is checked - add to Api
@@ -67,7 +81,11 @@ function EmailSender(props) {
         .then((res) => {
           setLetter(response.data);
           alert("Email Sent Successfully");
+<<<<<<< HEAD
           setLoading(false);
+=======
+
+>>>>>>> 414944975352c1bf87782b2ed07f0f1749bbe4ed
           console.log(res);
           console.log(setProceduresValue);
           console.log(letter);
@@ -80,25 +98,12 @@ function EmailSender(props) {
       <Typography variant="h6" component="div" gutterBottom mt={7} mb={3}>
         {loading
           ? "Kiri on saadetut"
+<<<<<<< HEAD
           : "Sisestage palun andmed, et saada otsimise tulemus oma emailile"}
+=======
+          : "Sisestage palun andmed ja valige protseduurid, et saada otsimise tulemus oma emailile"}
+>>>>>>> 414944975352c1bf87782b2ed07f0f1749bbe4ed
       </Typography>
-
-      {loading && (
-        <img
-          src={sending}
-          alt="loading..."
-          style={{
-            filter: "none",
-            position: "absolute",
-            width: 100,
-            height: 100,
-            top: "50%",
-            left: "50%",
-            justifyContent: "center",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-      )}
 
       <Grid container spacing={5}>
         {/* --------------------- Name ---------------------------- */}

@@ -14,7 +14,7 @@ exports.sendMail = (req, res, next) => {
     // Reusable transport method that opens pool of SMTP connections
     let smtpTransport = nodemailer.createTransport({
       // pool: true, // use pooled connections instead of creating a new connection for every email
-      host: "smtp.gmail.com",
+      host: "mail.veebimajutus.ee",
       port: 465,
       secure: true,
       logger: true, // logs to console
@@ -35,7 +35,11 @@ exports.sendMail = (req, res, next) => {
       subject: userSubject,
 
       html: `<b>Tere, ${userName}!</b> </br><p>BioSpa protseduurite eelvaliku test.</p>\n 
+<<<<<<< HEAD
       </br><p>Teie sõnum:\n</br>${userMessage} </p></br>
+=======
+      </br><p>Teie sõnum:\n</br>${userMessage} </p>\n
+>>>>>>> 414944975352c1bf87782b2ed07f0f1749bbe4ed
       <p>Protseduurid teie valisite: ${userProcedures}</p>`,
     };
 
