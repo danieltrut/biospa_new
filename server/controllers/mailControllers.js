@@ -60,8 +60,10 @@ exports.sendMail = (req, res, next) => {
 
     // Send email with defined transport object
     smtpTransport.sendMail(mailOptions, (err, response) => {
-      setLoading(false);
       console.log(mailOptions);
+      // return res
+      //   .status(200)
+      //   .json({ status: true, respLetter: "Teie Kiri Saadetud Edukalt!" });
     });
   } catch (error) {
     if (error) {

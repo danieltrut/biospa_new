@@ -45,7 +45,6 @@ function EmailSender(props) {
     // Chosed procedures looping for API URL integration and loading
     // Take props, mapp it and with query param join
     const chosenProcedures = proceduresValue.map((n) => `${n}`).join(", ");
-    // Error Component
 
     // Loading  is true if...
     if (
