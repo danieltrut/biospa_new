@@ -35,7 +35,7 @@ function RangeSlider() {
   return (
     <Box xs={12} sm={6} md={10}>
       <Typography id="input-slider" gutterBottom>
-        Hind
+        Hinnapiir
       </Typography>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs>

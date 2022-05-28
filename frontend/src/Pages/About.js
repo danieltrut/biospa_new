@@ -20,9 +20,12 @@ const classes = {
     margin: "auto",
     maxWidth: "1200px",
   },
+  textsec: {
+    width: "70%",
+  },
   secTwo: {
     margin: "auto",
-    maxWidth: "1200px",
+    maxWidth: "1180px",
     marginTop: "5rem",
     paddingLeft: "20px !important",
   },
@@ -70,7 +73,7 @@ export const About = () => {
               Meist
             </Typography>
             {/* INTRO TEXT */}
-            <Typography variant="h6" component="div" gutterBottom mt={5} mb={3}>
+            <Typography variant="h6"  style={classes.textsec} component="div" gutterBottom mt={5} mb={3}>
               Oleme eksklusiivne loodusravi ja spaakeskus. Pakume erakordset
               võimalust vabanemiseks tervistkahjustavatest harjumustest – teie
               teekond ravimiteta tervisliku eluviisi poole algab siit!
@@ -83,18 +86,29 @@ export const About = () => {
         </Grid>
       </Grid>
       <div style={classes.secTwo}>
-          <Typography variant="h4" component="div" gutterBottom>
-              Meie ajalugu
+          <Typography variant="h5" component="div" gutterBottom>
+            Meie ajalugu
           </Typography>
 
-          <Typography variant="h6" component="div" gutterBottom mt={5} mb={3}>
-          <b>22 aastat tagasi asutas Loodus BioSpa-d Dr. Med. Natalia Trofimova, kes on ühtlasi meie peaarst-dietoloog ning Eestis sel alal enimmüüdud raamatu “Paastuga terveks” autor.</b>
+          <Typography style={classes.textsec} component="div" gutterBottom mt={5} mb={3}>
+          <b>
+            Loodus Biospa asutas 22 aastat tagasi Dr. Med.
+            Natalia Trofimova - sisearst-dietoloog ning Eestis
+            selle ala enimmüüdud raamatu "Paastuga terveks"
+            autor.
+          </b>
           <br></br>
           <br></br>
-          Oleme siiamaani jäänud perekondlikuks ettevõtteks, mille eesmärk on aidata inimestel astuda nende tervisliku tuleviku teekonnale.
+            Oleme siiamaani jäänud perekondlikuks ettevõtteks,
+            mille eesmärk on aidata inimestel astuda nende
+            tervisliku tuleviku teekonnale.
           <br></br>
           <br></br>
-          Meie meeskond koosneb kõrgelt treenitud ja kogemusega spetsialistidest ja meditsiinitöötajatest, kes kindlustavad teie viibimise ajal professionaalse tervise järelvalve ja rahuliku ning meeldiva keskkonna.
+            Meie meeskond koosneb koolitatud ja pikaajalise
+            kogemusega spetsialistidest ja
+            meditsiinitöötajatest, kes kindlustavad Teiel
+            siinviibimise ajal professionaalse järelvalve tervisliku
+            olukorra üle ning meeldiva ja sõbraliku õhkkonna.
           </Typography>
           
       </div>

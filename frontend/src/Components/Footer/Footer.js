@@ -21,7 +21,7 @@ const classes = {
   },
   sec: {
     display: "flex",
-    maxWidth: "1200px",
+    maxWidth: "1160px",
     width: "100%",
     margin: "auto",
     justifyContent: "space-between",

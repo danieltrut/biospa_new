@@ -1,6 +1,3 @@
-// !! https://www.youtube.com/watch?v=kQTCLap8tvo&t=2566s
-// https://www.youtube.com/watch?v=o3eR0X91Ogs
-
 import React, { useContext } from "react";
 
 import { GlobalContext } from "./../../Context";
@@ -10,7 +7,6 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
 import axios from "axios";
 import { useState } from "react";
 
@@ -23,21 +19,21 @@ function EmailSender(props) {
   const [message, setMessage] = useState("");
   const [letter, setLetter] = useState(""); // Hook for creating letter
   const [loading, setLoading] = useState(false);
-  const [nameError, setNameError] = useState(false);
+  const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [subjectError, setSubjectError] = useState(false);
-  const [messageError, setMessageError] = useState(false);
+  const [procValueErr, setProcValueErr] = useState(false);
   const { proceduresValue, setProceduresValue } = useContext(GlobalContext); // Catches chosen Procedures in Tabel
+
 
   const handleRequest = async (e) => {
     e.preventDefault(); // stops the default action of a selected element
     // Email validation
     const regexTest = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/g);
 
-    setNameError(false);
+    setNameError("");
     setEmailError(false);
     setSubjectError(false);
-    setMessageError(false);
 
     //  Form validation
     name === "" ? setNameError(true) : setName("");
@@ -46,73 +42,66 @@ function EmailSender(props) {
 
     subject === "" ? setSubjectError(true) : setSubject("");
 
-    message === "" ? setMessageError(true) : setMessage("");
-
     // Chosed procedures looping for API URL integration and loading
-
-    const chosenProcedures = proceduresValue
-      .map((n) => `procedures=${n}`)
-      .join("&"); // Take props, mapp it and with query param join
+    // Take props, mapp it and with query param join
+    const chosenProcedures = proceduresValue.map((n) => `${n}`).join(", ");
+    // Error Component
 
     // Loading  is true if...
     if (
       name &&
       email &&
       subject &&
-      message &&
       chosenProcedures !== "" &&
       email.match(regexTest)
     ) {
-      setLoading(true);
+      setLoading(true); // Set the fraise and then use Axios
 
-      // Adding array of procedures to Rest Api, if Checkbox is checked - add to Api
+       // Adding array of procedures to Rest Api, if Checkbox is checked - add to Api
+       console.log({ email, message, name, subject }); // TODO see the object in console
 
-      console.log({ email, message, name, subject }); // TODO see the object in console
-
-      const chosenProcedures = proceduresValue
-        .map((n) => `procedures=${n}`)
-        .join("&"); // Take props, mapp it and with query param join
-
-      // Rest Api with query parameters
-      const response = await axios
-        .post(
-          `http://localhost:4000/api/mail/sendmail?name=${name}&email=${email}&subject=${subject}&message=${message}&${chosenProcedures}`
-        )
-        .then((res) => {
-          setLetter(response.data);
-          alert("Email Sent Successfully");
-<<<<<<< HEAD
-          setLoading(false);
-=======
-
->>>>>>> 414944975352c1bf87782b2ed07f0f1749bbe4ed
-          console.log(res);
-          console.log(setProceduresValue);
-          console.log(letter);
-        });
-    }
-  };
+       // Rest Api with query parameters
+       const response = await axios
+         .post(
+           `http://localhost:4000/api/mail/sendmail?name=${name}&email=${email}&subject=${subject}&message=${message}&procedures=${chosenProcedures}`
+         )
+         .then((res) => {
+           setLetter(response.data);
+           alert("Email Sent Successfully");
+ 
+           console.log(res);
+           console.log(setProceduresValue);
+           console.log(letter);
+         });
+     } else if (!chosenProcedures) {
+       setProcValueErr(true);
+       console.log(procValueErr);
+     }
+   };
 
   return (
     <form onSubmit={handleRequest} method="POST">
-      <Typography variant="h6" component="div" gutterBottom mt={7} mb={3}>
-        {loading
-          ? "Kiri on saadetut"
-<<<<<<< HEAD
-          : "Sisestage palun andmed, et saada otsimise tulemus oma emailile"}
-=======
-          : "Sisestage palun andmed ja valige protseduurid, et saada otsimise tulemus oma emailile"}
->>>>>>> 414944975352c1bf87782b2ed07f0f1749bbe4ed
+      <Typography 
+      variant="h6" 
+      component="div" 
+      gutterBottom 
+      mt={7} 
+      mb={3}>
+      {loading
+          ? "Kiri on saadetud!"
+          : setProcValueErr
+          ? "* Palun sisestage andmed, et saada tulemus oma eposti aadressile. "
+          : "Valige protseduurid ja täitke vormi, et saada otsimise tulemus oma emailile"}
       </Typography>
 
-      <Grid container spacing={5}>
+      <Grid container spacing={2}>
         {/* --------------------- Name ---------------------------- */}
 
-        <Grid item xs={12} sm={6} md={6}>
+        <Grid item md={6}>
           <Tooltip
             title={<Typography fontSize={20}>Sisestage nimi</Typography>}
           >
-            <Box mb={2}>
+            <Box >
               <TextField
                 // data-private Hides Input Data in LogRocket Video
                 data-private="lipsum"
@@ -121,10 +110,11 @@ function EmailSender(props) {
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 variant="outlined"
-                label="Nimi"
+                label="Sinu nimi"
                 fullWidth
                 autoComplete="name"
                 error={nameError}
+                required
               />
             </Box>
           </Tooltip>
@@ -138,7 +128,7 @@ function EmailSender(props) {
               <Typography fontSize={20}>Sisestage e-posti aadress</Typography>
             }
           >
-            <Box mb={2}>
+            <Box>
               <TextField
                 // data-private Hides Input Data in LogRocket Video
                 data-private="lipsum"
@@ -152,6 +142,7 @@ function EmailSender(props) {
                 fullWidth
                 autoComplete="email"
                 error={emailError}
+                required
               />
               {email &&
                 !/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/g.test(email) && (
@@ -166,14 +157,14 @@ function EmailSender(props) {
 
       {/* ------------------------------- Second grid with subject and message ---------------------------- */}
 
-      <Grid container spacing={5}>
+      <Grid container spacing={2} style={{ marginTop: 15}}>
         {/* ------------------------- Subject  -------------------------- */}
 
-        <Grid item xs={12} sm={6} md={6}>
+        <Grid item md={6}>
           <Tooltip
-            title={<Typography fontSize={20}>Sisestage teema</Typography>}
+            title={<Typography fontSize={20}>Sisestage pealkiri</Typography>}
           >
-            <Box mb={2}>
+            <Box>
               <TextField
                 // data-private Hides Input Data in LogRocket Video
                 data-private="lipsum"
@@ -182,9 +173,11 @@ function EmailSender(props) {
                 value={subject}
                 onChange={(event) => setSubject(event.target.value)}
                 variant="outlined"
-                label="Teema"
+                label='Nimeta otsingutulemus nt. "Protseduurid
+                lihaspingetele kuni 50 eur"'
                 fullWidth
                 error={subjectError}
+                required
               />
             </Box>
           </Tooltip>
@@ -192,37 +185,38 @@ function EmailSender(props) {
 
         {/* -------------------------- Message  -------------------------- */}
 
-        <Grid item xs={12} sm={6} md={6}>
+        <Grid item xs={12} sm={6} >
           <Tooltip
-            title={<Typography fontSize={20}>Sisestage sõnum</Typography>}
+            title={<Typography fontSize={20}>Sisestage lisamärkused</Typography>}
           >
+           
             <TextField
               // data-private Hides Input Data in LogRocket Video
               id="message"
               type="text"
               value={message}
               onChange={(event) => setMessage(event.target.value)}
-              label="Sisu"
+              label="Lisamärkused"
               multiline
               rows={3}
-              error={messageError}
             />
+          
           </Tooltip>
         </Grid>
       </Grid>
       {/* ------------------------- Button --------------------------------- */}
-      <Grid item xs={12} sm={6} md={6}>
+      <Grid item xs={12} sm={6} md={6} style={{ marginTop: -18}}>
         <Button
           id="buttonEmail"
           data-testid="button"
-          disabled={email === ""}
+          disabled={!name || !email || !subject}
           onClick={() => {
             handleRequest(name, email, subject, message);
           }}
           type="submit"
           variant="contained"
         >
-          Saada emailile
+          SAADA E-POSTILE
         </Button>
       </Grid>
     </form>

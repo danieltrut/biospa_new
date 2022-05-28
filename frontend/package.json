@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3000",
-  "dependencies": {
+  "devDependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.12.3",
@@ -11,36 +11,35 @@
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@mui/icons-material": "^5.3.1",
     "@mui/material": "^5.4.0",
-    "@sentry/react": "^6.19.6",
-    "@sentry/tracing": "^6.19.6",
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.2",
+    "@testing-library/dom": "^8.13.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.1",
     "axios": "^0.25.0",
     "chance": "^1.1.8",
     "cypress": "^9.5.4",
+    "cypress-react-unit-test": "3.0.0-cypress-mount-mode.14",
     "eslint-config-react": "^1.1.7",
     "eslint-config-react-app": "^7.0.1",
     "jest": "^28.1.0",
+    "msw": "^0.39.2",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
-    "query-string": "^7.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.0",
-    "remove-node-modules": "^1.7.6",
     "web-vitals": "^2.1.4",
     "webpack-cli": "^4.9.2",
-    "whatwg-fetch": "^3.6.2",
-    "yarn": "^1.22.18"
+    "whatwg-fetch": "^3.6.2"
   },
   "scripts": {
     "dev": "nodemon server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cypress open",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,14 +60,15 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "chance": "^1.1.8",
-    "cypress-react-unit-test": "3.0.0-cypress-mount-mode.14",
+  "dependencies": {
+    "@sentry/react": "^6.19.7",
+    "@sentry/tracing": "^6.19.7",
+    "jest-watch-typeahead": "^1.1.0",
+    "jest-worker": "^28.1.0",
     "logrocket": "^3.0.0",
     "node-modules": "^1.0.1",
-    "nodemon": "^2.0.15",
+    "nodemailer": "^6.7.5",
     "react": "^18.1.0",
-    "react-router-dom": "^6.2.1",
-    "webpack-cli": "^4.9.2"
+    "remove-node-modules": "^1.7.6"
   }
 }

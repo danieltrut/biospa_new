@@ -34,13 +34,28 @@ exports.sendMail = (req, res, next) => {
       to: userEmail,
       subject: userSubject,
 
-      html: `<b>Tere, ${userName}!</b> </br><p>BioSpa protseduurite eelvaliku test.</p>\n 
-<<<<<<< HEAD
-      </br><p>Teie sõnum:\n</br>${userMessage} </p></br>
-=======
-      </br><p>Teie sõnum:\n</br>${userMessage} </p>\n
->>>>>>> 414944975352c1bf87782b2ed07f0f1749bbe4ed
-      <p>Protseduurid teie valisite: ${userProcedures}</p>`,
+      html: `<b>Tere, ${userName}!</b> 
+      </br>
+      <p>Loodus BioSpa protseduuride eelvalik</p>\n 
+      </br>
+      <p>Sisu:\n${userMessage}</p>\n
+      <p>Teie poolt valitud protseduurid: ${userProcedures}</p>
+      </br>
+      </br>
+      <p>NB!</p> 
+      </br>
+      <p>NB!</p></br>
+      <ol>
+        <li>Kohapeal selgub kas valitud protseduure on võimalik pakkuda.</li>
+        <li>Doktori assistent otsustab kas Teie tervisliku seisundi puhul tohib antud protseduure teha.</li>
+      </ol>
+      </br>
+      <p>Loodus BioSpa</p> </br>
+      <p>tel. (+372)5093581</p></br>
+      <a href="https://biospa.ee/">www.biospa.ee</a></br>
+      <a href="mailto:loodus@biospa.ee">loodus@biospa.ee</a></br>
+      <a href="mailto:loodus@biospa.ee">loodus@biospa.ee</a></br>
+      `,
     };
 
     // Send email with defined transport object

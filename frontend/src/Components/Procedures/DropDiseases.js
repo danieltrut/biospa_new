@@ -51,7 +51,7 @@ function DropDiseases() {
   //////////////////////////////////////////////////////////////////////////////
 
   return (
-    <Tooltip title={<Typography fontSize={20}>Valige oma haigused</Typography>}>
+    <Tooltip title={<Typography fontSize={20}>Valige oma vastunäidustused</Typography>}>
       <Grid container>
         <Grid item xs={12} sm={6} md={12}>
           {/* -------------------------------------------------------------------------------------------------- */}
@@ -81,8 +81,8 @@ function DropDiseases() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Haigused"
-                // placeholder="Vali haigused"
+                label="Vastunäidustused"
+                // placeholder="Vali vastunäidustused"
               />
             )}
           />

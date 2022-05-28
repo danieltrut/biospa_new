@@ -294,7 +294,8 @@ export default function EnhancedTable() {
           variant="h6"
           component="div"
         >
-          Tee valik kasutades filtrid!
+          Vali otsingutulemuste saamisel välja soovitud
+          protseduurid ja märgi need ära.
         </Typography>
       ) : (
         <Paper sx={{ width: "100%", mb: 2 }}>

@@ -32,7 +32,7 @@ const classes = {
   },
   secTwo: {
     margin: "auto",
-    maxWidth: "1200px",
+    maxWidth: "1180px",
     marginTop: "5rem",
     marginLeft: "20px !important",
   },
@@ -50,6 +50,9 @@ const classes = {
     color: "blue",
     fontFamily: "Roboto",
     marginTop: "10rem",
+  },
+  textsec: {
+    marginBottom: "30px",
   },
 };
 
@@ -102,24 +105,30 @@ export const Procedures = () => {
           {/* HEADER */}
           <div style={classes.sec}>
             <Typography variant="h4" component="div" gutterBottom>
-              Loodus BioSpa on eksklusiivne butiik-SPA
+              Loodus BioSpa on eksklusiivne butiikspaa
             </Typography>
             {/* INTRO TEXT */}
             <Typography variant="h6" component="div" gutterBottom mt={5} mb={3}>
-              Oleme eksklusiivne loodusravi ja spaakeskus. Pakume erakordset
-              võimalust vabanemiseks tervistkahjustavatest harjumustest – teie
-              teekond ravimiteta tervisliku eluviisi poole algab siit!
+              Oleme ravipaastumisele spetsialiseerundu
+              loodusravi ja -spaakeskus. Pakume tõhusat
+              võimalust vabanemiseks tervistkahjustavatest
+              harjumustest - teie teekond liigsete ravimiteta
+              tervisliku elu poole algab siit!
             </Typography>
             <Typography variant="h6" component="div" gutterBottom>
-              Pakkume teil eelnevalt valida lisahoolitsused vastavalt oma
-              soovidele ja muudele filtritele teie äranägemise järgi. Võite ka
-              valida soovitud ravimeetodid, täita vormi ja saata see meile posti
-              teel.
+              Pakume võimalust teha lisahoolitsuste eelvalik
+              vastavalt oma kaebustele, näidustustele ja
+              soovidele. Saate valida soovitud ravimeetodid, täita
+              vormi ja edastada tulemus meile e-posti teel.
             </Typography>
           </div>
         </Grid>
       </Grid>
       <div style={classes.secTwo}>
+        <Typography style={classes.textsec} variant="h6" component="div" gutterBottom>
+          Tee valik soovitud eesmärkide, olemasolevate
+          kaebuste ja haiguste hulgas ning määra hinnapiir. 
+        </Typography>
         {/*-------------------------- First row Targets and Symptoms ---------------------------- */}
         <Grid container spacing={5}>
           <Grid item xs={12} sm={12} md={6}>
