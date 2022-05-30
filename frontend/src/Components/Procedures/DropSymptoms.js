@@ -13,6 +13,9 @@ import Checkbox from "@mui/material/Checkbox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
+// Styling the input
+import { makeStyles } from "@material-ui/core/styles";
+
 // For fetching data
 import Grid from "@mui/material/Grid";
 
@@ -42,6 +45,30 @@ function DropSymptoms(props) {
     console.log(symptomsValue);
   }
 
+  // Input TextField color on Focus
+const useStyles = makeStyles({
+  focus: {
+    // input label when focused
+    "& label.Mui-focused": {
+      color: "#72bb94",
+      "& label.MuiFormLabel-root": {
+        backgroundColor: "#fff",
+        marginLeft: "-5px",
+        padding: "0 6px",
+      },
+    },
+
+    // focused color for input with variant='outlined'
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "#72bb94",
+      },
+    },
+  },
+});
+
+const classes = useStyles();
+
   return (
     <Tooltip
       title={<Typography fontSize={20}>Valige oma sümptomid</Typography>}
@@ -57,6 +84,8 @@ function DropSymptoms(props) {
             options={symptoms}
             disableCloseOnSelect
             getOptionLabel={(option) => `${option.symp_title_et}`}
+            variant="outlined"
+            className={classes.focus}
             // onChange={handleChange}
             renderOption={(props, option, { setSymptomsValue }) => (
               <li {...props}>

@@ -359,7 +359,7 @@ export default function EnhancedTable() {
                         >
                           {procedure.proc_title_et}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">
                           {procedure.proc_descr_et}
                         </TableCell>
                         <TableCell align="right">

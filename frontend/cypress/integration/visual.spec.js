@@ -1,4 +1,4 @@
-/* describe('Visuaal test for Bio Spa', () => {
+ describe('Visuaal test for Bio Spa', () => {
     it('Test visual for button Otsi', () => {
 
         cy.visit('http://localhost:3000')
@@ -9,4 +9,4 @@
   
         cy.get(':nth-child(3) > .MuiGrid-container > .MuiGrid-root').matchImageSnapshot("otsi")
       })
- */
+}) 

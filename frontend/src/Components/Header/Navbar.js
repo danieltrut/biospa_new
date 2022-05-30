@@ -41,7 +41,7 @@ function Navbar() {
             ) : (
               <div className={classes.navlinks}>
                 <Link to="/" className={classes.link}>
-                  Procedurite eelkatse
+                  Protseduuride eelvalik
                 </Link>
                 <Link to="/about" className={classes.link}>
                   Meist

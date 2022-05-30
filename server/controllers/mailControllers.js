@@ -35,26 +35,24 @@ exports.sendMail = (req, res, next) => {
       subject: userSubject,
 
       html: `<b>Tere, ${userName}!</b> 
-      </br>
+      <br>
       <p>Loodus BioSpa protseduuride eelvalik</p>\n 
-      </br>
+      
       <p>Sisu:\n${userMessage}</p>\n
       <p>Teie poolt valitud protseduurid: ${userProcedures}</p>
-      </br>
-      </br>
-      <p>NB!</p> 
-      </br>
-      <p>NB!</p></br>
+      <br>
+      <p>NB!</p>
       <ol>
         <li>Kohapeal selgub kas valitud protseduure on võimalik pakkuda.</li>
         <li>Doktori assistent otsustab kas Teie tervisliku seisundi puhul tohib antud protseduure teha.</li>
       </ol>
-      </br>
-      <p>Loodus BioSpa</p> </br>
-      <p>tel. (+372)5093581</p></br>
-      <a href="https://biospa.ee/">www.biospa.ee</a></br>
-      <a href="mailto:loodus@biospa.ee">loodus@biospa.ee</a></br>
-      <a href="mailto:loodus@biospa.ee">loodus@biospa.ee</a></br>
+      <br>
+      <br>
+      <b>Loodus BioSpa</b>\n  
+      <p>tel. (+372)5093581</p>\n 
+      <p><a href="https://biospa.ee/">www.biospa.ee</a></p>
+      <p><a href="mailto:loodus@biospa.ee">loodus@biospa.ee</a></p>
+      <p><a href="mailto:protseduurid@biospa.ee">protseduurid@biospa.ee</a></p>
       `,
     };
 
