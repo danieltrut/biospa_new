@@ -66,7 +66,7 @@ class Procedure {
       join.push(
         `procedures_diseases USING (proc_id) JOIN diseases USING (dis_id)`
       );
-      where.push(`dis_id IN (:clientsDiseases)`);
+      where.push(`dis_id NOT IN (:clientsDiseases)`);
       namedPlaceholders.clientsDiseases = disIds.toString();
     }
 

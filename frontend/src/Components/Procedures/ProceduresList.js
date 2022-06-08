@@ -237,27 +237,50 @@ export default function EnhancedTable() {
     setProceduresValue([]);
   };
 
-  // Every Fetching Result Row Checkbox
+  // // Every Fetching Result Row Checkbox
+  // const handleSelectedProcecures = (event, proc_title_et) => {
+  //   const selectedIndex = proceduresValue.indexOf(proc_title_et);
+  //   let newSelected = [];
+
+  //   if (selectedIndex === -1) {
+  //     newSelected = newSelected.concat(proceduresValue, proc_title_et);
+  //   } else if (selectedIndex === 0) {
+  //     newSelected = newSelected.concat(proceduresValue.slice(1));
+  //   } else if (selectedIndex === proceduresValue.length - 1) {
+  //     newSelected = newSelected.concat(proceduresValue.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelected = newSelected.concat(
+  //       proceduresValue.slice(0, selectedIndex),
+  //       proceduresValue.slice(selectedIndex + 1)
+  //     );
+  //   }
+
+  //   setProceduresValue(newSelected);
+  //   console.log(setProcedures);
+  // };
+
+  // const handleSelectedProcecures = (event, proc_title_et) => {
+  //   const selectedIndex = proceduresValue(proc_title_et);
+  //   let newSelected = [];
+
+  //   newSelected.indexOf(selectedIndex) === -1
+  //     ? newSelected.push(selectedIndex)
+  //     : console.log("This item already exists");
+  //   setProceduresValue(newSelected);
+  //   console.log(setProcedures);
+  // };
+
   const handleSelectedProcecures = (event, proc_title_et) => {
-    const selectedIndex = proceduresValue.indexOf(proc_title_et);
+    const selectedIndex = proceduresValue(proc_title_et);
     let newSelected = [];
 
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(proceduresValue, proc_title_et);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(proceduresValue.slice(1));
-    } else if (selectedIndex === proceduresValue.length - 1) {
-      newSelected = newSelected.concat(proceduresValue.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        proceduresValue.slice(0, selectedIndex),
-        proceduresValue.slice(selectedIndex + 1)
-      );
+    if (!newSelected.includes(selectedIndex)) {
+      newSelected.push(selectedIndex);
     }
-
     setProceduresValue(newSelected);
     console.log(setProcedures);
   };
+
   // Changing pages
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -293,10 +316,7 @@ export default function EnhancedTable() {
           color="inherit"
           variant="h6"
           component="div"
-        >
-          Vali otsingutulemuste saamisel välja soovitud
-          protseduurid ja märgi need ära.
-        </Typography>
+        ></Typography>
       ) : (
         <Paper sx={{ width: "100%", mb: 2 }}>
           <Typography
@@ -306,7 +326,7 @@ export default function EnhancedTable() {
             id="tableTitle"
             component="div"
           >
-            Protseduurid
+            Märgi protseduurid, mida soovid saada e-postile
           </Typography>
           <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
@@ -380,6 +400,7 @@ export default function EnhancedTable() {
             </Table>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
+              labelRowsPerPage={"Ridade arv lehekülje kohta"}
               component="div"
               count={procedures.length}
               rowsPerPage={rowsPerPage}

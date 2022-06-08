@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
 // import { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
@@ -59,40 +59,6 @@ const classes = {
 /**Drop Down elements in two colomns and two rows */
 
 export const Procedures = () => {
-  const [diseases, setDiseases] = useState([]);
-  const [diseasesValue, setDiseasesValue] = useState([]); // Catches chosen Diseases in Dropdown
-  const [targets, setTargets] = useState([]);
-  const [targetsValue, setTargetsValue] = useState([]); // Catches chosen Targets in Dropdown
-  const [symptoms, setSymptoms] = useState([]);
-  const [symptomsValue, setSymptomsValue] = useState([]); // Catches chosen Symptoms in Dropdown
-  const [procedures, setProcedures] = useState([]);
-  const [procValue, setProcValue] = useState([]); // Catches chosen Procedures in Tabel
-  const [pricesValue, setPricesValue] = useState([]);
-
-  /**Drop
-   * One variable for all useStates for passing, priceValue and procedures initia
-   * */
-  const obj = {
-    targets,
-    setTargets,
-    targetsValue,
-    setTargetsValue,
-    diseases,
-    setDiseases,
-    diseasesValue,
-    setDiseasesValue,
-    symptoms,
-    setSymptoms,
-    symptomsValue,
-    setSymptomsValue,
-    procedures,
-    setProcedures,
-    pricesValue,
-    setPricesValue,
-    procValue,
-    setProcValue,
-  };
-
   return (
     <div style={classes.root}>
       <Grid
@@ -109,42 +75,53 @@ export const Procedures = () => {
             </Typography>
             {/* INTRO TEXT */}
             <Typography variant="h6" component="div" gutterBottom mt={5} mb={3}>
-              Oleme ravipaastumisele spetsialiseerundu
-              loodusravi ja -spaakeskus. Pakume tõhusat
-              võimalust vabanemiseks tervistkahjustavatest
-              harjumustest - teie teekond liigsete ravimiteta
-              tervisliku elu poole algab siit!
+              Oleme ravipaastumisele spetsialiseerundu loodusravi ja
+              -spaakeskus. Pakume tõhusat võimalust vabanemiseks
+              tervistkahjustavatest harjumustest - teie teekond liigsete
+              ravimiteta tervisliku elu poole algab siit!
             </Typography>
             <Typography variant="h6" component="div" gutterBottom>
-              Pakume võimalust teha lisahoolitsuste eelvalik
-              vastavalt oma kaebustele, näidustustele ja
-              soovidele. Saate valida soovitud ravimeetodid, täita
-              vormi ja edastada tulemus meile e-posti teel.
+              Pakume võimalust teha lisahoolitsuste eelvalik vastavalt oma
+              kaebustele, näidustustele ja soovidele. Saate valida soovitud
+              ravimeetodid, täita vormi ja edastada tulemus meile e-posti teel.
             </Typography>
           </div>
         </Grid>
       </Grid>
       <div style={classes.secTwo}>
-        <Typography style={classes.textsec} variant="h6" component="div" gutterBottom>
-          Tee valik soovitud eesmärkide, olemasolevate
-          kaebuste ja haiguste hulgas ning määra hinnapiir. 
+        <Typography
+          style={classes.textsec}
+          variant="h4"
+          component="div"
+          gutterBottom
+        >
+          Otsi protseduure
+        </Typography>
+        <Typography
+          style={classes.textsec}
+          variant="h6"
+          component="div"
+          gutterBottom
+        >
+          Tee valik soovitud eesmärkide, olemasolevate kaebuste ja hulgas ning
+          määra hinnapiir.
         </Typography>
         {/*-------------------------- First row Targets and Symptoms ---------------------------- */}
         <Grid container spacing={5}>
           <Grid item xs={12} sm={12} md={6}>
-            <DropTargets {...obj} />
+            <DropTargets />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <DropSymptoms {...obj} />
+            <DropSymptoms />
           </Grid>
         </Grid>
         {/*-------------------------- Second row Diseases and Slider ---------------------------- */}
         <Grid container spacing={5}>
           <Grid item xs={12} sm={12} md={6}>
-            <DropDiseases {...obj} />
+            <DropDiseases />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <Slider {...obj} />
+            <Slider />
           </Grid>
         </Grid>
         {/*------------------------------------------------------ */}
@@ -154,7 +131,7 @@ export const Procedures = () => {
       <div style={classes.secTwo}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={12}>
-            <ProceduresList {...obj} />
+            <ProceduresList />
           </Grid>
         </Grid>
       </div>

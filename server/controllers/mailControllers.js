@@ -52,7 +52,7 @@ exports.sendMail = (req, res, next) => {
       <p>tel. (+372)5093581</p>\n 
       <p><a href="https://biospa.ee/">www.biospa.ee</a></p>
       <p><a href="mailto:loodus@biospa.ee">loodus@biospa.ee</a></p>
-      <p><a href="mailto:protseduurid@biospa.ee">protseduurid@biospa.ee</a></p>
+      
       `,
     };
 
