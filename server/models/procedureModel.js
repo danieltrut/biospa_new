@@ -66,7 +66,13 @@ class Procedure {
       join.push(
         `procedures_diseases USING (proc_id) JOIN diseases USING (dis_id)`
       );
+      // Exclude diseases that should not be used in search of procedures
       where.push(`dis_id NOT IN (:clientsDiseases)`);
+
+      // Exclude procedures that should not be performed due to customer diseases
+      where.push(
+        `proc_id NOT IN (SELECT proc_id FROM procedures_diseases WHERE dis_id IN(:clientsDiseases))`
+      );
       namedPlaceholders.clientsDiseases = disIds.toString();
     }
 
@@ -87,12 +93,21 @@ class Procedure {
     where = implodeData("WHERE", where, "AND");
 
     const [rows] = await db.execute(
-      `SELECT procedures.proc_title_et, procedures.proc_descr_et, procedures.proc_duration, procedures.proc_price 
+      `SELECT proc_id, procedures.proc_title_et, procedures.proc_descr_et, procedures.proc_duration, procedures.proc_price 
    FROM procedures ${join} ${where} ORDER BY proc_price;`,
       namedPlaceholders
     );
     console.log(rows);
-    return rows;
+
+    // Select all procedure and fetch without dublicates
+    const mapIds = rows.map((o) => o.proc_id);
+    const filteredProcedures = rows.filter(
+      ({ proc_id }, index) => !mapIds.includes(proc_id, index + 1)
+    );
+
+    console.log(filteredProcedures);
+
+    return filteredProcedures;
   }
 }
 

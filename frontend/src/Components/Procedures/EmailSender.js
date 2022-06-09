@@ -21,7 +21,6 @@ function EmailSender(props) {
   const [loading, setLoading] = useState(false);
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState(false);
-
   const [procValueErr, setProcValueErr] = useState(false);
   const { proceduresValue, setProceduresValue } = useContext(GlobalContext); // Catches chosen Procedures in Tabel
   const handleRequest = async (e) => {
@@ -165,7 +164,6 @@ function EmailSender(props) {
                 //className={classes.focus}
                 label="Pealkiri"
                 fullWidth
-                required
               />
             </Box>
           </Tooltip>
@@ -195,7 +193,7 @@ function EmailSender(props) {
         </Grid>
       </Grid>
       {/* ------------------------- Button --------------------------------- */}
-      <Grid item xs={12} sm={6} md={6} style={{ marginTop: -18 }}>
+      <Grid item xs={12} sm={6} md={6} style={{ marginTop: -10 }}>
         <Button
           id="buttonEmail"
           disabled={!name || !email}

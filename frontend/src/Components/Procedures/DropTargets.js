@@ -44,34 +44,32 @@ function DropTargets() {
     console.log(targetsValue);
   }
 
-// Input TextField color on Focus
-const useStyles = makeStyles({
-  focus: {
-    // input label when focused
-    "& label.Mui-focused": {
-      color: "#72bb94",
-      "& label.MuiFormLabel-root": {
-        backgroundColor: "#fff",
-        marginLeft: "-5px",
-        padding: "0 6px",
+  // Input TextField color on Focus
+  const useStyles = makeStyles({
+    focus: {
+      // input label when focused
+      "& label.Mui-focused": {
+        color: "#72bb94",
+        "& label.MuiFormLabel-root": {
+          backgroundColor: "#fff",
+          marginLeft: "-5px",
+          padding: "0 6px",
+        },
+      },
+
+      // focused color for input with variant='outlined'
+      "& .MuiOutlinedInput-root": {
+        "&.Mui-focused fieldset": {
+          borderColor: "#72bb94",
+        },
       },
     },
+  });
 
-    // focused color for input with variant='outlined'
-    "& .MuiOutlinedInput-root": {
-      "&.Mui-focused fieldset": {
-        borderColor: "#72bb94",
-      },
-    },
-  },
-});
-
-const classes = useStyles();
+  const classes = useStyles();
 
   return (
-    <Tooltip
-      title={<Typography fontSize={20}>Valige oma eesmärgid</Typography>}
-    >
+    <Tooltip title={<Typography fontSize={20}>Vali oma eesmärgid</Typography>}>
       <Grid container>
         <Grid item xs={12} sm={6} md={12}>
           {/* -------------------------------------------------------------------------------------------------- */}
