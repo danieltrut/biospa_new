@@ -149,7 +149,7 @@ function EmailSender(props) {
       <Grid container spacing={2} style={{ marginTop: 15 }}>
         {/* ------------------------- Subject  -------------------------- */}
 
-        <Grid item md={6}>
+        <Grid item xs={12} sm={6} md={6}>
           <Tooltip
             title={<Typography fontSize={20}>Sisestage pealkiri</Typography>}
           >
@@ -173,7 +173,7 @@ function EmailSender(props) {
 
         {/* -------------------------- Message  -------------------------- */}
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} md={6}>
           <Tooltip
             title={
               <Typography fontSize={20}>Sisestage lisamärkused</Typography>

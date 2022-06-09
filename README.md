@@ -16,8 +16,9 @@ This is the frontend-backend project with Express.js React.js and MySQL
 # To start Frontend
 
 1. install yarn for mac https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable
-2. yarn start
-3. npm i
+2. npm i
+3. in .env file save SKIP_PREFLIGHT_CHECK=true
+4. npm start
 
 Structure:
 In index.js there are app.use links for main routes

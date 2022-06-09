@@ -238,26 +238,27 @@ export default function EnhancedTable() {
   };
 
   // // Every Fetching Result Row Checkbox
-  // const handleSelectedProcecures = (event, proc_title_et) => {
-  //   const selectedIndex = proceduresValue.indexOf(proc_title_et);
-  //   let newSelected = [];
+  // Every Fetching Result Row Checkbox
+  const handleSelectedProcecures = (event, proc_title_et) => {
+    const selectedIndex = proceduresValue.indexOf(proc_title_et);
+    let newSelected = [];
 
-  //   if (selectedIndex === -1) {
-  //     newSelected = newSelected.concat(proceduresValue, proc_title_et);
-  //   } else if (selectedIndex === 0) {
-  //     newSelected = newSelected.concat(proceduresValue.slice(1));
-  //   } else if (selectedIndex === proceduresValue.length - 1) {
-  //     newSelected = newSelected.concat(proceduresValue.slice(0, -1));
-  //   } else if (selectedIndex > 0) {
-  //     newSelected = newSelected.concat(
-  //       proceduresValue.slice(0, selectedIndex),
-  //       proceduresValue.slice(selectedIndex + 1)
-  //     );
-  //   }
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(proceduresValue, proc_title_et);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(proceduresValue.slice(1));
+    } else if (selectedIndex === proceduresValue.length - 1) {
+      newSelected = newSelected.concat(proceduresValue.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        proceduresValue.slice(0, selectedIndex),
+        proceduresValue.slice(selectedIndex + 1)
+      );
+    }
 
-  //   setProceduresValue(newSelected);
-  //   console.log(setProcedures);
-  // };
+    setProceduresValue(newSelected);
+    console.log(setProcedures);
+  };
 
   // const handleSelectedProcecures = (event, proc_title_et) => {
   //   const selectedIndex = proceduresValue(proc_title_et);
@@ -270,16 +271,16 @@ export default function EnhancedTable() {
   //   console.log(setProcedures);
   // };
 
-  const handleSelectedProcecures = (event, proc_title_et) => {
-    const selectedIndex = proceduresValue(proc_title_et);
-    let newSelected = [];
+  // const handleSelectedProcecures = (event, proc_title_et) => {
+  //   const selectedIndex = proceduresValue(proc_title_et);
+  //   let newSelected = [];
 
-    if (!newSelected.includes(selectedIndex)) {
-      newSelected.push(selectedIndex);
-    }
-    setProceduresValue(newSelected);
-    console.log(setProcedures);
-  };
+  //   if (!newSelected.includes(selectedIndex)) {
+  //     newSelected.push(selectedIndex);
+  //   }
+  //   setProceduresValue(newSelected);
+  //   console.log(setProcedures);
+  // };
 
   // Changing pages
   const handleChangePage = (event, newPage) => {
