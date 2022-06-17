@@ -9,6 +9,8 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { useState } from "react";
 import "../../index.css";
+// Styling the input
+import { makeStyles } from "@material-ui/core/styles";
 
 // Styling the input
 
@@ -61,6 +63,30 @@ function EmailSender(props) {
     }
   };
 
+  // Input TextField color on Focus
+  const useStyles = makeStyles({
+    focus: {
+      // input label when focused
+      "& label.Mui-focused": {
+        color: "#72bb94",
+        "& label.MuiFormLabel-root": {
+          backgroundColor: "#fff",
+          marginLeft: "-5px",
+          padding: "0 6px",
+        },
+      },
+
+      // focused color for input with variant='outlined'
+      "& .MuiOutlinedInput-root": {
+        "&.Mui-focused fieldset": {
+          borderColor: "#72bb94",
+        },
+      },
+    },
+  });
+
+  const classes = useStyles();
+
   return (
     <form onSubmit={handleRequest} method="POST">
       <Typography
@@ -101,6 +127,7 @@ function EmailSender(props) {
                 error={nameError}
                 name="Username"
                 required
+                className={classes.focus}
               />
             </Box>
           </Tooltip>
@@ -131,6 +158,7 @@ function EmailSender(props) {
                 autoComplete="email"
                 error={emailError}
                 required
+                className={classes.focus}
               />
               {email &&
                 !/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/g.test(email) && (
@@ -164,6 +192,7 @@ function EmailSender(props) {
                 //className={classes.focus}
                 label="Pealkiri"
                 fullWidth
+                className={classes.focus}
               />
             </Box>
           </Tooltip>
@@ -188,6 +217,7 @@ function EmailSender(props) {
               label="Lisamärkused"
               multiline
               rows={3}
+              className={classes.focus}
             />
           </Tooltip>
         </Grid>
