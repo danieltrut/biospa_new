@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "./../../Context";
-
 import axios from "axios";
 
-import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-
 import Autocomplete from "@mui/material/Autocomplete";
 import Checkbox from "@mui/material/Checkbox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import ReactTooltip from "react-tooltip";
 
 // Styling the input
 import { makeStyles } from "@material-ui/core/styles";
@@ -64,47 +61,56 @@ function DropTargets() {
         },
       },
     },
+    tooltip: {
+      fontSize: "18px !important",
+    },
   });
 
   const classes = useStyles();
 
   return (
-    <Tooltip title={<Typography fontSize={20}>Vali oma eesmärgid</Typography>}>
-      <Grid container>
-        <Grid item xs={12} sm={6} md={12}>
-          {/* -------------------------------------------------------------------------------------------------- */}
-          {/* Dropdown element */}
-          <Autocomplete
-            onChange={handleSelectChange}
-            multiple={true}
-            id="valueId"
-            options={targets}
-            disableCloseOnSelect
-            getOptionLabel={(option) => `${option.tar_title_et}`}
-            variant="outlined"
-            className={classes.focus}
-            // onChange={handleChange}
-            renderOption={(props, option, { setTargetsValue }) => (
-              <li {...props}>
-                <Checkbox
-                  icon={icon}
-                  checkedIcon={checkedIcon}
-                  style={{ marginRight: 8 }}
-                  checked={setTargetsValue}
-                />
-                {[option.tar_title_et]}
-              </li>
-            )}
-            renderInput={(params) => (
-              <TextField {...params} autoFocus={true} label="Eesmärgid" />
-            )}
-          />
-        </Grid>
-
+    <Grid container>
+      <Grid item xs={12} sm={12} md={12}>
         {/* -------------------------------------------------------------------------------------------------- */}
-        {/* Fetching Procedures data from DataBase */}
+        {/* Dropdown element */}
+        <Autocomplete
+          onChange={handleSelectChange}
+          data-tip="Leia endale soovitatud protseduurid" // Tooltip text
+          multiple={true}
+          id="valueId"
+          options={targets}
+          disableCloseOnSelect
+          getOptionLabel={(option) => `${option.tar_title_et}`}
+          variant="outlined"
+          className={classes.focus}
+          // onChange={handleChange}
+          renderOption={(props, option, { setTargetsValue }) => (
+            <li {...props}>
+              <Checkbox
+                icon={icon}
+                checkedIcon={checkedIcon}
+                style={{ marginRight: 8 }}
+                checked={setTargetsValue}
+              />
+              {[option.tar_title_et]}
+            </li>
+          )}
+          renderInput={(params) => (
+            // Autofocus is blinking cursor on page load
+            <TextField {...params} autoFocus={true} label="Eesmärgid" />
+          )}
+        />
+        <ReactTooltip
+          // Tooltip styling
+          className={classes.tooltip}
+          arrow
+          backgroundColor="#4e5154"
+        />
       </Grid>
-    </Tooltip>
+
+      {/* -------------------------------------------------------------------------------------------------- */}
+      {/* Fetching Procedures data from DataBase */}
+    </Grid>
   );
 }
 export default DropTargets;

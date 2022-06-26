@@ -1,10 +1,25 @@
 body {
   margin: 0;
+
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ------- Corrects App width view ---------------------------*/
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+@media only screen and (max-width: 600px) {
 }
 
 code {
@@ -16,6 +31,10 @@ code {
 .css-10mzr36-MuiGrid-root {
   margin-left: 0 !important;
   color: #585c69;
+}
+
+.makeStyles-navbar-1 {
+  height: 5.5rem !important;
 }
 
 /*V----------- Header burger color ------------------ */
@@ -48,16 +67,17 @@ code {
   color: #72bb94 !important;
 }
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
-}
-
 .MuiFormControl-root,
 .MuiBox-root {
   width: 95% !important;
 }
 
-.css-1mxz8qt-MuiPaper-root {
-  width: 97% !important;
+.css-11lq3yg-MuiGrid-root {
+  width: 96% !important;
+}
+
+.css-mhc70k-MuiGrid-root {
+  margin-top: 10px !important;
 }
 
 .css-3zphzr {
@@ -66,7 +86,10 @@ code {
 
 .MuiFormControl-root,
 .MuiBox-root {
-  width: 103% !important;
+  width: 100% !important;
+}
+.slider {
+  width: 97% !important;
 }
 
 .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
@@ -93,27 +116,8 @@ code {
 }
 /* ----------- On focus dropdow border color ------------------ */
 
-.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
-  .MuiOutlinedInput-notchedOutline {
-  border-color: #72bb94 !important;
-}
-
-/*----------- DROPDOWN part ------------------ */
-.MuiList-root
-  MuiList-padding
-  MuiMenu-list
-  css-6hp17o-MuiList-root-MuiMenu-list {
-  width: 88% !important;
-  margin-left: 3em !important;
-}
-
 .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
   background-color: #e4f0e9 !important;
-}
-
-.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
-.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
-  color: #72bb94 !important;
 }
 
 .css-zow5z4-MuiGrid-root > .MuiGrid-item {
@@ -125,25 +129,14 @@ code {
   color: "#303133" !important;
 }
 
-/* ---------- Slider width ------------------------*/
-.css-1v5z18m {
-  width: 41vw !important;
-  margin-left: 2em !important;
-  margin-right: 2em !important;
-}
-
 .css-187mznn-MuiSlider-root {
   color: #72bb94 !important;
 }
-/* ------------- slider color -------------------- */
-.css-eg0mwd-MuiSlider-thumb:hover,
-.css-eg0mwd-MuiSlider-thumb.Mui-focusVisible {
-  box-shadow: 0px 0px 0px 8px rgba(55, 151, 114, 0.16);
-}
 
-/* -----------  Form Message ---------------------  */
-.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
-  width: 96% !important;
+/* ------ Email Sender */
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 95% !important;
 }
 
 #buttonEmail {
@@ -156,4 +149,68 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 95%;
+}
+
+/* ------------------- Mobile View ---------------------*/
+
+@media screen and (max-width: 600px) {
+  #searchProcedures {
+    padding-left: 1.5rem;
+  }
+  #searchButton {
+    margin-left: 1.5rem;
+  }
+  #emailForm {
+    padding-left: 1.5rem;
+  }
+
+  #buttonEmail {
+    margin-top: 3rem;
+  }
+
+  .MuiDrawer-paper {
+    margin-top: 5rem;
+    height: 100% !important;
+    width: 100% !important;
+    background-color: #585c69 !important;
+  }
+  .MuiBackdrop-root {
+    background-color: transparent !important;
+  }
+}
+
+@media screen and (max-width: 1300px) and (min-width: 601px) {
+  #searchProcedures {
+    padding-left: 1.5rem;
+  }
+  #searchButton {
+    margin-left: 1.5rem;
+  }
+  #emailForm {
+    padding-left: 1.5rem;
+  }
+
+  #buttonEmail {
+    margin-top: 0rem;
+  }
+
+  .MuiDrawer-paper {
+    margin-top: 5rem;
+    height: 100% !important;
+    width: 100% !important;
+    background-color: #585c69 !important;
+  }
+  .MuiBackdrop-root {
+    background-color: transparent !important;
+  }
+  #filtersText {
+    padding-right: 1.5rem;
+  }
+  #procedureTestIntroText {
+    padding-right: 1.5rem;
+  }
 }

@@ -45,6 +45,7 @@ const GenericBtn = (props) => {
   return (
     <Button
       style={classes.searchBtn}
+      id="searchButton"
       spacing={5}
       onClick={() => {
         loadProcTargetsSymptoms(
