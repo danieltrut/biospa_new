@@ -11,18 +11,19 @@ import {
 import { Link } from "react-router-dom";
 
 import MenuIcon from "@material-ui/icons/Menu";
+import "../../index.css";
 
 const useStyles = makeStyles(() => ({
   link: {
     textDecoration: "none",
-    color: "#72bb94",
-    fontSize: "18px",
+    color: "white",
+    fontSize: "20px",
     marginLeft: "20px",
-    marginRight: "20px",
   },
   icon: {
     color: "white",
   },
+  hambMenu: {},
 }));
 
 function DrawerComponent() {
@@ -30,7 +31,11 @@ function DrawerComponent() {
   const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <>
-      <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
+      <Drawer
+        className="hambMenu"
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+      >
         <List>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>

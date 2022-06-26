@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "./../../Context";
-import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
 import Grid from "@material-ui/core/Grid";
 import Box from "@mui/material/Box";
@@ -14,27 +13,33 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // Styling the input
 
-function EmailSender(props) {
+function EmailSender() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [letter, setLetter] = useState(""); // Hook for creating letter
   const [loading, setLoading] = useState(false);
-  const [nameError, setNameError] = useState("");
+  const [nameError, setNameError] = useState(false);
+  const [emailEmpty, setEmailEmpty] = useState(false);
   const [emailError, setEmailError] = useState(false);
+
   const [procValueErr, setProcValueErr] = useState(false);
   const { proceduresValue, setProceduresValue } = useContext(GlobalContext); // Catches chosen Procedures in Tabel
+
   const handleRequest = async (e) => {
     e.preventDefault(); // stops the default action of a selected element
+    setNameError(false);
+    setEmailError(false);
+    setEmailEmpty(false);
+
     // Email validation
     const regexTest = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/g);
-    setNameError("");
-    setEmailError(false);
 
     //  Form validation
-    name === "" ? setNameError(true) : setName("");
-    !email.match(regexTest) ? setEmailError(true) : setEmail("");
+    name === "" ? setNameError(true) : setName(name);
+    email === "" ? setEmailEmpty(true) : setEmail(email);
+    !email.match(regexTest) ? setEmailError(true) : setEmail(email);
 
     // Chosed procedures looping for API URL integration and loading
     // Take props, mapp it and with query param join
@@ -52,14 +57,11 @@ function EmailSender(props) {
         )
         .then((res) => {
           setLetter(response.data);
-          alert("Email Sent Successfully");
+
           console.log(res);
           console.log(setProceduresValue);
           console.log(letter);
         });
-    } else if (!chosenProcedures) {
-      setProcValueErr(true);
-      console.log(procValueErr);
     }
   };
 
@@ -88,7 +90,7 @@ function EmailSender(props) {
   const classes = useStyles();
 
   return (
-    <form onSubmit={handleRequest} method="POST">
+    <form id="emailForm" onSubmit={handleRequest} method="POST">
       <Typography
         variant="h5"
         error={procValueErr}
@@ -107,67 +109,56 @@ function EmailSender(props) {
         {/* --------------------- Name ---------------------------- */}
 
         <Grid item xs={12} sm={6} md={6}>
-          <Tooltip
-            title={<Typography fontSize={20}>Sisestage nimi</Typography>}
-          >
-            <Box>
-              <TextField
-                // data-private Hides Input Data in LogRocket Video
-                data-private="lipsum"
-                id="name"
-                disabled={proceduresValue.length === 0}
-                type="text"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                variant="outlined"
-                // className={classes.focus}
-                label="Sinu nimi"
-                fullWidth
-                autoComplete="name"
-                error={nameError}
-                name="Username"
-                required
-                className={classes.focus}
-              />
-            </Box>
-          </Tooltip>
+          <Box>
+            <TextField
+              data-private="lipsum"
+              id="name"
+              disabled={proceduresValue.length === 0}
+              data-testid="name-input"
+              type="text"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              variant="outlined"
+              // className={classes.focus}
+              label="Sinu nimi"
+              fullWidth
+              autoComplete="name"
+              error={nameError}
+              helperText={nameError === true ? "Sisesta nimi!" : ""}
+              className={classes.focus}
+            />
+          </Box>
         </Grid>
 
         {/* ---------------------- Email with validation -------------------- */}
 
         <Grid item xs={12} sm={6} md={6}>
-          <Tooltip
-            title={
-              <Typography fontSize={20}>Sisestage e-posti aadress</Typography>
-            }
-          >
-            <Box>
-              <TextField
-                // data-private Hides Input Data in LogRocket Video
-                data-private="lipsum"
-                id="email"
-                disabled={proceduresValue.length === 0}
-                data-testid="email-input"
-                type="text"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                variant="outlined"
-                // className={classes.focus}
-                label="E-post"
-                fullWidth
-                autoComplete="email"
-                error={emailError}
-                required
-                className={classes.focus}
-              />
-              {email &&
-                !/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/g.test(email) && (
-                  <span className="error" data-testid="error-msg">
-                    Palun sisestage õige e-posti aadress.
-                  </span>
-                )}
-            </Box>
-          </Tooltip>
+          <Box>
+            <TextField
+              // data-private Hides Input Data in LogRocket Video
+              data-private="lipsum"
+              id="email"
+              disabled={proceduresValue.length === 0}
+              data-testid="email-input"
+              type="text"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              variant="outlined"
+              // className={classes.focus}
+              label="E-post"
+              fullWidth
+              autoComplete="email"
+              error={emailError}
+              helperText={
+                emailEmpty === true
+                  ? "Sisesta e-posti aadressi!"
+                  : emailError === true
+                  ? "Sisesta õige e-posti aadress!"
+                  : ""
+              }
+              className={classes.focus}
+            />
+          </Box>
         </Grid>
       </Grid>
 
@@ -177,56 +168,45 @@ function EmailSender(props) {
         {/* ------------------------- Subject  -------------------------- */}
 
         <Grid item xs={12} sm={6} md={6}>
-          <Tooltip
-            title={<Typography fontSize={20}>Sisestage pealkiri</Typography>}
-          >
-            <Box>
-              <TextField
-                // data-private Hides Input Data in LogRocket Video
-                data-private="lipsum"
-                id="subject"
-                type="text"
-                value={subject}
-                onChange={(event) => setSubject(event.target.value)}
-                variant="outlined"
-                //className={classes.focus}
-                label="Pealkiri"
-                fullWidth
-                className={classes.focus}
-              />
-            </Box>
-          </Tooltip>
+          <Box>
+            <TextField
+              // data-private Hides Input Data in LogRocket Video
+              data-private="lipsum"
+              id="subject"
+              type="text"
+              value={subject}
+              onChange={(event) => setSubject(event.target.value)}
+              variant="outlined"
+              //className={classes.focus}
+              label="Pealkiri"
+              fullWidth
+              className={classes.focus}
+            />
+          </Box>
         </Grid>
 
         {/* -------------------------- Message  -------------------------- */}
 
         <Grid item xs={12} sm={6} md={6}>
-          <Tooltip
-            title={
-              <Typography fontSize={20}>Sisestage lisamärkused</Typography>
-            }
-          >
-            <TextField
-              // data-private Hides Input Data in LogRocket Video
-              id="message"
-              type="text"
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-              variant="outlined"
-              // className={classes.focus}
-              label="Lisamärkused"
-              multiline
-              rows={3}
-              className={classes.focus}
-            />
-          </Tooltip>
+          <TextField
+            // data-private Hides Input Data in LogRocket Video
+            id="message"
+            type="text"
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+            variant="outlined"
+            // className={classes.focus}
+            label="Lisamärkused"
+            multiline
+            rows={3}
+            className={classes.focus}
+          />
         </Grid>
       </Grid>
       {/* ------------------------- Button --------------------------------- */}
-      <Grid item xs={12} sm={6} md={6} style={{ marginTop: -10 }}>
+      <Grid item xs={12} sm={6} md={6}>
         <Button
           id="buttonEmail"
-          disabled={!name || !email}
           data-testid="button"
           onClick={() => {
             handleRequest(name, email);

@@ -7,6 +7,10 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 import MuiInput from "@mui/material/Input";
+import ReactTooltip from "react-tooltip";
+
+// Styling the input
+import { makeStyles } from "@material-ui/core/styles";
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -30,19 +34,33 @@ function RangeSlider() {
     console.log(pricesValue);
   };
 
-  // Every time you get out of focus from the input field, the event will trigger
+  // Tooltip custom color and font size on Focus
+  const useStyles = makeStyles({
+    tooltip: {
+      fontSize: "18px !important",
+    },
+  });
+
+  const classes = useStyles();
 
   return (
-    <Box xs={12} sm={6} md={10}>
+    <Box className="slider" xs={12} sm={12} md={6}>
       <Typography id="input-slider" gutterBottom>
         Hinnapiir
       </Typography>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs>
           <Slider
+            data-tip="Leia protseduurid sobiva hinnapiiriga" // Tooltip text
             value={typeof value === "number" ? value : 30}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
+          />
+          <ReactTooltip
+            // Tooltip
+            className={classes.tooltip}
+            arrow
+            backgroundColor="#4e5154"
           />
         </Grid>
         <Grid item>

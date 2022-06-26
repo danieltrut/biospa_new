@@ -6,11 +6,11 @@ export default makeStyles((theme) => ({
     height: 80,
     paddingLeft: "2rem",
     paddingRight: "2rem",
-    display: 'flex',
+    display: "flex",
     justifyContent: "space-between",
     margin: "auto",
     alignContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
 
   logo: {
@@ -20,19 +20,19 @@ export default makeStyles((theme) => ({
   },
 
   containerTt: {
-   maxWidth: "1200px",
-   width: "100%"
+    maxWidth: "1200px",
+    width: "100%",
   },
 
   section: {
-    marginLeft: "-17px"
+    marginLeft: "-17px",
   },
 
   logolinks: {
     display: "flex",
     justifyContent: "flex-end",
     width: "100vw",
-    marginRight: "-17px"
+    marginRight: "-17px",
   },
 
   navlinks: {
@@ -45,7 +45,7 @@ export default makeStyles((theme) => ({
     color: "#585c69",
     fontSize: "16px",
     marginLeft: theme.spacing(3),
-    marginTop: "10px"
+    marginTop: "10px",
   },
 
   "&:hover": {

@@ -9,6 +9,7 @@ import DropDiseases from "../Components/Procedures/DropDiseases";
 import Slider from "../Components/Procedures/Slider";
 
 import ProceduresList from "../Components/Procedures/ProceduresList";
+import "../index.css";
 
 // import axios from "axios";
 
@@ -65,11 +66,11 @@ export const Procedures = () => {
         container
         rowSpacing={1}
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        id="procedurePage"
+        id="procedureTestIntro"
       >
         <Grid item xs={12} style={classes.intro}>
           {/* HEADER */}
-          <div style={classes.sec}>
+          <div id="procedureTestIntroText" style={classes.sec}>
             <Typography variant="h4" component="div" gutterBottom>
               Loodus BioSpa on eksklusiivne butiikspaa
             </Typography>
@@ -83,12 +84,12 @@ export const Procedures = () => {
             <Typography variant="h6" component="div" gutterBottom>
               Pakume võimalust teha lisahoolitsuste eelvalik vastavalt oma
               kaebustele, näidustustele ja soovidele. Saate valida soovitud
-              ravimeetodid, täita vormi ja edastada tulemus meile e-posti teel.
+              ravimeetodid, täita vormi ja edastada tulemus teile e-posti teel.
             </Typography>
           </div>
         </Grid>
       </Grid>
-      <div style={classes.secTwo}>
+      <div id="searchProcedures" style={classes.secTwo}>
         <Typography
           style={classes.textsec}
           variant="h4"
@@ -98,16 +99,17 @@ export const Procedures = () => {
           Otsi protseduure
         </Typography>
         <Typography
+          id="filtersText"
           style={classes.textsec}
           variant="h6"
           component="div"
           gutterBottom
         >
-          Tee valik soovitud eesmärkide, olemasolevate kaebuste ja hulgas ning
-          määra hinnapiir.
+          Tee valik soovitud eesmärkide, olemasolevate kaebuste ja haiguste
+          hulgas ning määra hinnapiir.
         </Typography>
         {/*-------------------------- First row Targets and Symptoms ---------------------------- */}
-        <Grid container spacing={5}>
+        <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={6}>
             <DropTargets />
           </Grid>
@@ -116,7 +118,7 @@ export const Procedures = () => {
           </Grid>
         </Grid>
         {/*-------------------------- Second row Diseases and Slider ---------------------------- */}
-        <Grid container spacing={5}>
+        <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={6}>
             <DropDiseases />
           </Grid>

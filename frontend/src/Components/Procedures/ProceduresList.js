@@ -59,25 +59,25 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "name",
+    id: "proc_title_et",
     numeric: false,
     disablePadding: true,
     label: "Protseduur",
   },
   {
-    id: "description",
+    id: "proc_descr_et",
     numeric: true,
     disablePadding: false,
     label: "Kirjeldus",
   },
   {
-    id: "duration",
+    id: "proc_duration",
     numeric: true,
     disablePadding: false,
     label: "Kestvus (m)",
   },
   {
-    id: "price",
+    id: "proc_price",
     numeric: true,
     disablePadding: false,
     label: "Hind (€)",
@@ -209,7 +209,13 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("price");
+  // TODO for accendint used database
+  const [orderBy, setOrderBy] = React.useState([
+    "proc_price",
+    "proc_title_et",
+    "proc_descr_et",
+    "proc_duration",
+  ]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const { procedures, setProcedures } = useContext(GlobalContext); // Catches chosen Procedures in Tabel
@@ -237,7 +243,6 @@ export default function EnhancedTable() {
     setProceduresValue([]);
   };
 
-  // // Every Fetching Result Row Checkbox
   // Every Fetching Result Row Checkbox
   const handleSelectedProcecures = (event, proc_title_et) => {
     const selectedIndex = proceduresValue.indexOf(proc_title_et);
@@ -255,32 +260,9 @@ export default function EnhancedTable() {
         proceduresValue.slice(selectedIndex + 1)
       );
     }
-
     setProceduresValue(newSelected);
     console.log(setProcedures);
   };
-
-  // const handleSelectedProcecures = (event, proc_title_et) => {
-  //   const selectedIndex = proceduresValue(proc_title_et);
-  //   let newSelected = [];
-
-  //   newSelected.indexOf(selectedIndex) === -1
-  //     ? newSelected.push(selectedIndex)
-  //     : console.log("This item already exists");
-  //   setProceduresValue(newSelected);
-  //   console.log(setProcedures);
-  // };
-
-  // const handleSelectedProcecures = (event, proc_title_et) => {
-  //   const selectedIndex = proceduresValue(proc_title_et);
-  //   let newSelected = [];
-
-  //   if (!newSelected.includes(selectedIndex)) {
-  //     newSelected.push(selectedIndex);
-  //   }
-  //   setProceduresValue(newSelected);
-  //   console.log(setProcedures);
-  // };
 
   // Changing pages
   const handleChangePage = (event, newPage) => {
