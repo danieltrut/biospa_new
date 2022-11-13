@@ -8,23 +8,23 @@ define([
         $.widget('unit.js', {
 
             config: {
-                qty: '#qty',
-                unit_qty: '#unit-qty',
-                unit_select: '.unit-select select',
-                increase_qty: '.increase-qty',
-                decrease_qty: '.decrease-qty',
-                purchase_label: '#purchase-unit',
-                qty_optionlabel: '#qty-optionlabel'
+                qty: '#qty-',
+                unit_qty: '#unit-qty-',
+                unit_select: '[class^=unit-select-] select',
+                increase_qty: '.increase-qty-',
+                decrease_qty: '.decrease-qty-',
+                purchase_label: '#purchase-unit-',
+                qty_optionlabel: '#qty-optionlabel-'
             },
 
             originalConfig: {
-                qty: '#qty',
-                unit_qty: '#unit-qty',
-                unit_select: '.unit-select select',
-                increase_qty: '.increase-qty',
-                decrease_qty: '.decrease-qty',
-                purchase_label: '#purchase-unit',
-                qty_optionlabel: '#qty-optionlabel'
+                qty: '#qty-',
+                unit_qty: '#unit-qty-',
+                unit_select: '[class^=unit-select-] select',
+                increase_qty: '.increase-qty-',
+                decrease_qty: '.decrease-qty-',
+                purchase_label: '#purchase-unit-',
+                qty_optionlabel: '#qty-optionlabel-'
             },
 
             _create: function() {
@@ -44,21 +44,24 @@ define([
             },
 
             init: function() {
-                if($(this.config.unit_select).length) {
-                    this.setUnitQty();
-                    this.setPurchaseUnit();
-                    this.bindEvents();
-                }
+                $(this.config.unit_select).each(function (i, el) {
+                    var $el = $(el);
+                    this.setUnitQty($el);
+                    this.setPurchaseUnit($el);
+                    this.bindEvents($el);
+                }.bind(this));
             },
 
-            setPurchaseUnit: function() {
-                var selectedUnitFound = $(this.config.unit_select).find('option:selected');
+            setPurchaseUnit: function($el) {
+                var selectedUnitFound = $el.find('option:selected');
+
+                var prodid = $el.data('prodid');
 
                 if (selectedUnitFound.length > 1 && selectedUnitFound.parents('.purchased-wrapper').length) {
-                    selectedUnitFound = $(this.originalConfig.unit_select).find('option:selected');
+                    selectedUnitFound = $el.find('option:selected');
 
                     $.each(selectedUnitFound, function( index, value ) {
-                        if ($(value.parentElement).attr('id') == 'product-view-unit-select') {
+                        if ($(value.parentElement).attr('id') === ('product-view-unit-select-'+ prodid)) {
                             selectedUnitFound = $(value);
                             return false;
                         }
@@ -72,47 +75,59 @@ define([
                     selectedUnit = "";
                 }
 
-                $(this.config.purchase_label).text(selectedUnit);
-
-                var selectedLabel = $(this.config.unit_select).find('option:selected').data('unitabbr');
-                var currentQty = $(this.config.qty).val();
+                var selectedLabel = $el.find('option:selected').data('unitabbr');
+                var currentQty = $(this.config.qty + prodid).val();
 
                 if(currentQty == 1) {
-                	$(this.config.qty_optionlabel).text(selectedLabel[0]);
+                	$(this.config.qty_optionlabel + prodid).text(selectedLabel[0]);
                 } else {
-                	$(this.config.qty_optionlabel).text(selectedLabel[1]);
+                	$(this.config.qty_optionlabel + prodid).text(selectedLabel[1]);
                 }
             },
 
-            setUnitQty: function() {
-                $(this.config.unit_qty).val(this.getBaseQty.call(this));
+            setUnitQty: function($el) {
+                var prodid = $el.data('prodid');
+                $(this.config.unit_qty+ prodid).val(this.getBaseQty.call(this, $el));
             },
 
-            bindEvents: function() {
-                $(this.config.unit_select).on('change', $.proxy(this.setUnitQty, this));
-                $(this.config.unit_select).on('change', $.proxy(this.setPurchaseUnit, this));
-                $(this.config.increase_qty).on('click', $.proxy(this.setUnitQty, this));
-                $(this.config.decrease_qty).on('click', $.proxy(this.setUnitQty, this));
-                $(this.config.qty).on('change', $.proxy(this.setUnitQty, this));
+            bindEvents: function($el) {
+                $el.on('change', $.proxy(this.setUnitQty, this, $el));
+                $el.on('change', $.proxy(this.setPurchaseUnit, this, $el));
+
+                var prodid = $el.data('prodid');
+
+                $(this.config.increase_qty + prodid).on('click', $.proxy(this.setUnitQty, this, $el));
+                $(this.config.decrease_qty + prodid).on('click', $.proxy(this.setUnitQty, this, $el));
+                $(this.config.qty + prodid).on('change', $.proxy(this.setUnitQty, this, $el));
             },
 
-            getBaseQty: function() {
-                var selected = $(this.config.unit_select).find('option:selected').val();
-                var currentQty = $(this.config.qty).val();
+            getBaseQty: function($el) {
+                var selected = $el.find('option:selected').val();
+                var prodid = $el.data('prodid');
+                var currentQty = $(this.config.qty+prodid).val();
 
-                var selectedLabel = $(this.config.unit_select).find('option:selected').data('unitabbr');
+                var selectedLabel = $el.find('option:selected').data('unitabbr');
                 if(currentQty == 1) {
-                	$(this.config.qty_optionlabel).text(selectedLabel[0]);
+                	$(this.config.qty_optionlabel + prodid).text(selectedLabel[0]);
                 } else {
-                	$(this.config.qty_optionlabel).text(selectedLabel[1]);
+                	$(this.config.qty_optionlabel + prodid).text(selectedLabel[1]);
                 }
 
                 if(selected == 'default') {
                     var baseQty = currentQty;
                 } else {
-                    var conversions = JSON.parse(this.options.conversions);
-                    var conversionRate = conversions[selected];
-                    var baseQty = currentQty * conversionRate;
+                    if(typeof this.options.conversions !== 'undefined' && this.options.conversions) {
+                        for (var i = 0; i < this.options.conversions.length; i++) {
+                            var convertsation = this.options.conversions[i];
+                            if(convertsation.id===prodid){
+                                var conversionData = JSON.parse(convertsation.conversionData);
+                                var conversionRate = conversionData[selected];
+                                var baseQty = currentQty * conversionRate;
+                                break;
+                            }
+                        }
+
+                    }
                 }
                 if (typeof tiersJsData !== 'undefined' && tiersJsData) {
                 	$('div.price-configured_price').html(originalPriceDiv);
@@ -125,7 +140,7 @@ define([
 							currTier = i;
 						}
 					}
-					
+
 					if(currTier > -1) {
 						var tier = tiersJsData[currTier];
 
