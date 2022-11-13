@@ -14,6 +14,7 @@ define([
                 increase_qty: '.increase-qty-',
                 decrease_qty: '.decrease-qty-',
                 purchase_label: '#purchase-unit-',
+                qty_optionlabel: '#qty-optionlabel-'
             },
 
             originalConfig: {
